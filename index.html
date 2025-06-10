@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+     <div class="container dots-background">
+      <div class="title">
+        <h1>Catalogo Oggetti</h1>
+      </div>
+
+      <div class="box">
+        <input
+          type="text"
+          id="input-ricerca"
+          placeholder="Inserisci un prodotto"
+        />
+        <input type="number" id="input-quantita" placeholder="Quantità" />
+      </div>
+
+      <div class="button-container">
+        <button onclick="aggiungiProdotto()">Aggiungi</button>
+        <button onclick="eliminaTutti()">Pulisci tutto</button>
+      </div>
+    </div>
+
+    <div class="dots-dark"></div>
+
+    <div>
+      <ul id="lista"></ul>
+    </div>
+
+
+
+
+    <script src="app.js"></script>
+</body>
+</html>

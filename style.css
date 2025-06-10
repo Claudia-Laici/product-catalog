@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --background-color: rgb(224, 224, 224);
+    --primary-color: #6946b6;
+    --secondary-color: #b29fec;
+    --accent-color: #57c785;
+    --highlight-color: #000000;
+}
