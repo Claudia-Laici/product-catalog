@@ -1,43 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catalogo</title>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mod3D Studio</title>
 
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container-product-catalog">
+      <header>
+        <h1>Mod3D Studio</h1>
+        <p></p>
+      </header>
 
-     <div class="container dots-background">
-      <div class="title">
-        <h1>Catalogo Oggetti</h1>
-      </div>
+      <nav></nav>
 
-      <div class="box">
-        <input
-          type="text"
-          id="input-ricerca"
-          placeholder="Inserisci un prodotto"
-        />
-        <input type="number" id="input-quantita" placeholder="Quantità" />
-      </div>
+      <main></main>
 
-      <div class="button-container">
-        <button onclick="aggiungiProdotto()">Aggiungi</button>
-        <button onclick="eliminaTutti()">Pulisci tutto</button>
-      </div>
-    </div>
-
-    <div class="dots-dark"></div>
-
-    <div>
-      <ul id="lista"></ul>
-    </div>
-
-
-
-
+      <aside>
+       <section id="cart" class="shopping-cart">
+           <h2>Cart</h2>
+           <p></p>
+           <ul></ul>
+      </aside>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
