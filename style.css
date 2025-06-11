@@ -11,6 +11,23 @@ body {
   padding: 20px;
 }
 
+.header {
+    text-align: center;
+   background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.nav {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
 main {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -20,6 +37,7 @@ main {
 
 /* Articoli */
 .articolo {
+  text-align: center;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -121,6 +139,22 @@ aside p {
   font-weight: bold;
   font-size: 1.1rem;
   color: #111;
+}
+
+
+.carrello-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.carrello-item .thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #eee;
 }
 
 /* Responsive */

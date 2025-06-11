@@ -40,7 +40,6 @@ function aggiungiAlCarrello(id) {
   const articolo = listaOggetti.find((item) => item.id === id);
   const input = document.getElementById(`quantita-${id}`); // 🔁 ottiene la quantità dal DOM
   const quantita = parseInt(input.value) || 1;
-  imageUrl = articolo.imageUrl;
   const index = carrello.findIndex((item) => item.id === id);
   if (index !== -1) {
     carrello[index].quantita += quantita;
@@ -50,10 +49,11 @@ function aggiungiAlCarrello(id) {
       name: articolo.name,
       quantita: quantita,
       price: articolo.price,
+      imageUrl: articolo.imageUrl,
     });
   }
 
-  alert`(${articolo.name} è stato aggiunto al carrello)`;
+  alert("Articolo aggiunto al carrello!");
   aggiornaLista();
 }
 
@@ -115,9 +115,16 @@ function aggiornaLista() {
   for (let articolo of carrello) {
     const liCart = document.createElement("li");
     liCart.innerHTML = `
-      ${articolo.name} - Quantità: ${articolo.quantita}
-      <button onclick="eliminaProdotto(${articolo.id})">Elimina</button>
-    `;
+  <div class="carrello-item">
+    <img src="${articolo.imageUrl}" alt="${articolo.name}" class="thumb">
+    <div>
+      <strong>${articolo.name}</strong><br>
+      Quantità: ${articolo.quantita}
+    </div>
+    <button onclick="eliminaProdotto(${articolo.id})">Elimina</button>
+  </div>
+`;
+
     ulCart.appendChild(liCart);
     totale += articolo.price * articolo.quantita;
   }
