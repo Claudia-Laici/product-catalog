@@ -5,7 +5,7 @@ const listaOggetti = [
     description: "Filamenti di plastica",
     price: 25.99,
     quantita: 1,
-    imageUrl: "",
+    imageUrl: "assets/filamenti.jpg",
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ const listaOggetti = [
     description: "Inserti Filettati",
     price: 4.99,
     quantita: 1,
-    imageUrl: "",
+    imageUrl: "assets/inserti.jpg",
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const listaOggetti = [
     description: "Piatto",
     price: 35,
     quantita: 1,
-    imageUrl: "",
+    imageUrl: "assets/piatto.jpg",
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ const listaOggetti = [
     description: "Stampante",
     price: 399,
     quantita: 1,
-    imageUrl: "",
+    imageUrl: "assets/stampante.jpg",
   },
 ];
 
@@ -40,7 +40,7 @@ function aggiungiAlCarrello(id) {
   const articolo = listaOggetti.find((item) => item.id === id);
   const input = document.getElementById(`quantita-${id}`); // 🔁 ottiene la quantità dal DOM
   const quantita = parseInt(input.value) || 1;
-
+  imageUrl = articolo.imageUrl;
   const index = carrello.findIndex((item) => item.id === id);
   if (index !== -1) {
     carrello[index].quantita += quantita;
@@ -123,9 +123,12 @@ function aggiornaLista() {
   }
 
   const totalElement = document.querySelector("aside p");
-  totalElement.textContent = `Totale carrello: €${totale.toFixed(2)}`;
+  if (carrello.length === 0) {
+    totalElement.textContent = "Carrello vuoto";
+  } else {
+    totalElement.textContent = `Totale carrello: €${totale.toFixed(2)}`;
+  }
 }
-
 function eliminaProdotto(id) {
   const index = carrello.findIndex((item) => item.id === id);
   if (index !== -1) {

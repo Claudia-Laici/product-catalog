@@ -8,22 +8,35 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container-product-catalog">
-      <header>
+    <div class="container">
+      <header class="header">
         <h1>Mod3D Studio</h1>
         <p></p>
       </header>
 
-      <nav></nav>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
 
-      <main></main>
+      </nav>
 
-      <aside>
+      
+      <main class="main-content"></main>
+
+      <aside class ="cart-section">
        <section id="cart" class="shopping-cart">
            <h2>Cart</h2>
            <p></p>
            <ul></ul>
       </aside>
+       <button class="checkout-btn hidden" id="checkout-btn" disabled>
+                    Procedi al Checkout
+                </button>
+    </div>
+
     <script src="script.js"></script>
   </body>
 </html>

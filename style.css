@@ -1,83 +1,135 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Variabili /
-:root {
-    --body-color: rgb(0, 168, 198);
-    --white-color: #ffffff;
-    --color1: rgb(240, 200, 100);
-    --color2: rgb(237, 157, 255);
-    --color3: rgb(73, 73, 73);
-    --text-p-color: #000000;
-    --text-s-color: #f09c00;
-}
-/ Solitamente su bg con --primary-color imposteremo --text-p-color, analogo sc>tsc. /
-/ Applicazione delle variabili:
-    h5 {color: var(--primary-color);} /
-
-    / [data-theme="dark"] {
-        background-color: #000000;
-        color: #f4f4f4;
-    } */
-
-
-header, nav, main, aside, footer {
-    padding: 10px;
-}
-
-a {
-    font-weight: 600;
-    text-decoration: none;
-    color: var(--text-p-color);
-}
-
-ul {
-    list-style-type: none;
-}
-
-
 body {
-    font-family: 'Times New Roman', Times, serif;
-    background-color: var(--body-color);
-}
-
-header {
-    position: relative;
-    background-color: var(--color1);
-}
-
-header span {
-    position: absolute
-}
-
-nav {
-    background-color: var(--white-color);
-}
-
-nav ul {
-    display: flex;
-    justify-content: space-evenly;
-}
-
-#mainAside {
-    display: flex;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  padding: 20px;
 }
 
 main {
-    width: 80%;
-    display: flex;
-    background-color: var(--color1);
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
 }
 
+/* Articoli */
+.articolo {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.articolo h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.articolo img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  background-color: #eee;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+.articolo p {
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+.articolo label {
+  display: block;
+  margin: 10px 0;
+  font-size: 0.95rem;
+}
+
+.articolo input[type="number"] {
+  width: 70px;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Pulsanti */
+button {
+  padding: 8px 16px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #4338ca;
+}
+
+/* Carrello */
 aside {
-    width: 20%;
-    background-color: var(--color2);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: fit-content;
 }
 
-aside h2 {
-    display: inline;
-}   
+aside h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: #4f46e5;
+}
 
+aside ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 15px;
+}
+
+aside li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+aside li button {
+  background-color: #ef4444;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}
+
+aside li button:hover {
+  background-color: #dc2626;
+}
+
+aside p {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #111;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+
+  .articolo img {
+    max-height: 150px;
+  }
+}
