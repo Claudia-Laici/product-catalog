@@ -33,18 +33,28 @@ const listaOggetti = [
   },
 ];
 
+const carrello = [];
+
 // Funzione per aggiungere un articolo al carrello
 function aggiungiAlCarrello(id) {
-  const articolo = listaOggetti.find(item => item.id === id);
-  alert(`${articolo.name} è stato aggiunto al carrello`);
-  const ulCart = document.querySelector("aside ul");
-  const liCart = document.createElement("li");
-  liCart.innerHTML = `
-    ${articolo.name} - Quantità: ${articolo.quantita}
-    <button onclick="eliminaProdotto(${articolo.id})">Elimina</button>
-    <button onclick="modificaQuantita(${articolo.id})">Modifica</button>
-  `;
-  ulCart.appendChild(liCart);
+  const articolo = listaOggetti.find((item) => item.id === id);
+  const input = document.getElementById(`quantita-${id}`); // 🔁 ottiene la quantità dal DOM
+  const quantita = parseInt(input.value) || 1;
+
+  const index = carrello.findIndex((item) => item.id === id);
+  if (index !== -1) {
+    carrello[index].quantita += quantita;
+  } else {
+    carrello.push({
+      id: articolo.id,
+      name: articolo.name,
+      quantita: quantita,
+      price: articolo.price,
+    });
+  }
+
+  alert`(${articolo.name} è stato aggiunto al carrello)`;
+  aggiornaLista();
 }
 
 // Funzione per creare gli articoli nel main
@@ -65,7 +75,7 @@ function creaArticoli() {
         <input 
           type="number" 
           id="quantita-${articolo.id}" 
-          value="1" 
+          value="${articolo.quantita}" 
           min="1" 
           onchange="calcolaQuantita(${articolo.id})"
         >
@@ -80,13 +90,12 @@ function creaArticoli() {
   }
 }
 
-
 // Funzione per calcolare prezzo totale dato prezzo e quantità
 function calcolaQuantita(id) {
   const input = document.querySelector(`#quantita-${id}`);
-  const quantita = parseInt(input.value) || 1;
+  const quantita = parseInt(input.value, 10) || 1;
 
-  const articolo = listaOggetti.find(item => item.id === id);
+  const articolo = listaOggetti.find((item) => item.id === id);
   articolo.quantita = quantita; // 🔁 aggiorna la quantità anche nell’oggetto
 
   const prezzoTotale = (articolo.price * quantita).toFixed(2);
@@ -97,9 +106,32 @@ function calcolaQuantita(id) {
 }
 
 // Funzione placeholder per aggiornare la lista carrello (può essere migliorata)
-function aggiornaCarrello() {
-  // Per ora non fa nulla, ma serve per evitare errori
-  console.log("Lista aggiornata (placeholder)");
+function aggiornaLista() {
+  const ulCart = document.querySelector("aside ul");
+  ulCart.innerHTML = ""; // Pulisce il contenuto precedente
+
+  let totale = 0;
+
+  for (let articolo of carrello) {
+    const liCart = document.createElement("li");
+    liCart.innerHTML = `
+      ${articolo.name} - Quantità: ${articolo.quantita}
+      <button onclick="eliminaProdotto(${articolo.id})">Elimina</button>
+    `;
+    ulCart.appendChild(liCart);
+    totale += articolo.price * articolo.quantita;
+  }
+
+  const totalElement = document.querySelector("aside p");
+  totalElement.textContent = `Totale carrello: €${totale.toFixed(2)}`;
+}
+
+function eliminaProdotto(id) {
+  const index = carrello.findIndex((item) => item.id === id);
+  if (index !== -1) {
+    carrello.splice(index, 1);
+    aggiornaLista();
+  }
 }
 
 // Esegui all’avvio
@@ -107,11 +139,3 @@ document.addEventListener("DOMContentLoaded", function () {
   aggiornaLista();
   creaArticoli();
 });
-
-
-
-
-
-
-
-

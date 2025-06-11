@@ -1,14 +1,83 @@
 *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-:root{
-    --background-color: rgb(224, 224, 224);
-    --primary-color: #6946b6;
-    --secondary-color: #b29fec;
-    --accent-color: #57c785;
-    --highlight-color: #000000;
+/* Variabili /
+:root {
+    --body-color: rgb(0, 168, 198);
+    --white-color: #ffffff;
+    --color1: rgb(240, 200, 100);
+    --color2: rgb(237, 157, 255);
+    --color3: rgb(73, 73, 73);
+    --text-p-color: #000000;
+    --text-s-color: #f09c00;
 }
+/ Solitamente su bg con --primary-color imposteremo --text-p-color, analogo sc>tsc. /
+/ Applicazione delle variabili:
+    h5 {color: var(--primary-color);} /
+
+    / [data-theme="dark"] {
+        background-color: #000000;
+        color: #f4f4f4;
+    } */
+
+
+header, nav, main, aside, footer {
+    padding: 10px;
+}
+
+a {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-p-color);
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--body-color);
+}
+
+header {
+    position: relative;
+    background-color: var(--color1);
+}
+
+header span {
+    position: absolute
+}
+
+nav {
+    background-color: var(--white-color);
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#mainAside {
+    display: flex;
+}
+
+main {
+    width: 80%;
+    display: flex;
+    background-color: var(--color1);
+}
+
+aside {
+    width: 20%;
+    background-color: var(--color2);
+}
+
+aside h2 {
+    display: inline;
+}   
 
