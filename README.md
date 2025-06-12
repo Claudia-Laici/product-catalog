@@ -1,7 +1,7 @@
-Catalogo Prodotti
+# Catalogo Prodotti
 Questo progetto è una semplice applicazione web di Catalogo Prodotti che permette agli utenti di sfogliare i prodotti e gestire un carrello della spesa. Di seguito trovi una spiegazione passo-passo delle sue funzionalità:
 
-# Struttura del Progetto
+## Struttura del Progetto
 index.html: File HTML principale che contiene la struttura del catalogo e del carrello.
 
 style.css: Foglio di stile per il layout e il design.
