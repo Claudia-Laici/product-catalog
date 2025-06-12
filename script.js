@@ -19,7 +19,7 @@ const listaOggetti = [
     id: 3,
     name: "Piatto",
     description: "Piatto",
-    price: 35,
+    price: 35.99,
     quantita: 1,
     imageUrl: "assets/piatto.jpg",
   },
@@ -27,7 +27,7 @@ const listaOggetti = [
     id: 4,
     name: "Stampante",
     description: "Stampante",
-    price: 399,
+    price: 399.99,
     quantita: 1,
     imageUrl: "assets/stampante.jpg",
   },
@@ -42,7 +42,7 @@ function aggiungiAlCarrello(id) {
   const quantita = parseInt(input.value) || 1;
   const index = carrello.findIndex((item) => item.id === id);
   if (index !== -1) {
-    carrello[index].quantita += quantita;
+    carrello[index].quantita = quantita;
   } else {
     carrello.push({
       id: articolo.id,

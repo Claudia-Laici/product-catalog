@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 :root {
-  --primary-color: rgb(244, 244, 249);
+  --primary-color: rgb(244, 249, 248);
   --secondary-color: rgb(79, 70, 229);
   --tertiary-color: rgb(255, 255, 255);
   --quaternary-color: rgb(238, 238, 238);
@@ -71,9 +71,10 @@ nav ul {
 
 .main-aside {
   display: flex;
+  position: relative;
  /*  display: grid;
   grid-template-columns: 2fr 1fr; */
-  gap: 30px;
+  gap: 20px;
 }
 
 main {
@@ -83,9 +84,9 @@ main {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 30px;
+
+ /*  margin-bottom: 30px; */
+  justify-content: space-evenly;
 }
 
 /* Articoli */
@@ -95,7 +96,7 @@ main {
   background-color: var(--tertiary-color); 
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  margin: 20px 0;
   width: 400px; /* Larghezza fissa */
   display: flex;
   flex-direction: column;
@@ -146,7 +147,9 @@ button {
 
   margin-top: 10px;
   transition: background-color 0.2s ease;
+  
 }
+
 
 button:hover {
   background-color: var(--secondary-color);
@@ -154,11 +157,17 @@ button:hover {
 
 /* Carrello */
 aside {
+  display: flex;
+  flex-direction: column;
   width: 30%;
   background-color: var(--tertiary-color);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: fit-content;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  right: 0;
 }
 
 aside h2 {
@@ -201,6 +210,11 @@ aside p {
   color: #111;
 }
 
+.checkout-btn{
+  width: 50%;
+}
+
+
 
 .carrello-item {
   display: flex;
@@ -218,13 +232,30 @@ aside p {
   background-color: #eee;
 }
 
+footer {
+  text-align: center;
+  margin-top: 20px;
+   background-color: var(--tertiary-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
-  main {
+  .main-aside{
     display: flex;
-    /* grid-template-columns: 1fr; */
+    flex-direction: column;
   }
 
+  main {
+    width: 100%;
+    
+  }
+
+ aside {
+    width: 100%;
+   
+  }
   .articolo img {
     max-height: 150px;
   }
