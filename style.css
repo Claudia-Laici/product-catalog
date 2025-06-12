@@ -3,46 +3,103 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --primary-color: rgb(244, 244, 249);
+  --secondary-color: rgb(79, 70, 229);
+  --tertiary-color: rgb(255, 255, 255);
+  --quaternary-color: rgb(238, 238, 238);
+  --quinary-color: rgb(204, 204, 204);
+}
+
+header,
+nav,
+main,
+.articolo,
+aside,
+footer {
+  padding: 20px;
+}
+
+a {
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-p-color);
+}
+
+ul {
+  list-style-type: none;
+}
 
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f4f9;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--primary-color);
   color: #333;
   padding: 20px;
 }
 
-.header {
-    text-align: center;
-   background-color: #fff;
-  padding: 20px;
+header {
+  text-align: center;
+  background-color: var(--tertiary-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* per avviso futuro al posto di alert*/
+/* header span {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  padding: 5px 10px;
+  border-radius: 5px;
+} */ 
+
+nav {
+  background-color: var(--tertiary-color); 
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
-.nav {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+nav ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.main-aside {
+  display: flex;
+ /*  display: grid;
+  grid-template-columns: 2fr 1fr; */
+  gap: 30px;
 }
 
 main {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  width: 70%;
+  background-color: var(--tertiary-color);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   gap: 30px;
   margin-bottom: 30px;
 }
 
 /* Articoli */
 .articolo {
+  width: calc(50% - 50px);
   text-align: center;
-  background-color: #fff;
-  padding: 20px;
+  background-color: var(--tertiary-color); 
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  width: 400px; /* Larghezza fissa */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .articolo h2 {
@@ -52,13 +109,13 @@ main {
 }
 
 .articolo img {
-  width: 100%;
-  max-height: 200px;
-  object-fit: contain;
-  background-color: #eee;
+  height: 200px; /* Altezza fissa invece di max-height */
+  object-fit: cover; /* Cambia da contain a cover per riempire tutto lo spazio */
+  background-color: var(--quaternary-color);
   margin-bottom: 15px;
   border-radius: 8px;
 }
+
 
 .articolo p {
   margin: 8px 0;
@@ -76,35 +133,37 @@ main {
   padding: 5px;
   margin-left: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--quinary-color);
 }
 
 /* Pulsanti */
 button {
   padding: 8px 16px;
-  background-color: #4f46e5;
+  background-color: var(--secondary-color);
   color: white;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
+
   margin-top: 10px;
   transition: background-color 0.2s ease;
 }
 
 button:hover {
-  background-color: #4338ca;
+  background-color: var(--secondary-color);
 }
 
 /* Carrello */
 aside {
-  background-color: #fff;
-  padding: 20px;
+  width: 30%;
+  background-color: var(--tertiary-color);
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   height: fit-content;
 }
 
-aside h3 {
+aside h2 {
+  text-align: center;
+  justify-content: center;
   font-size: 1.4rem;
   margin-bottom: 15px;
   color: #4f46e5;
@@ -136,6 +195,7 @@ aside li button:hover {
 }
 
 aside p {
+  text-align: center;
   font-weight: bold;
   font-size: 1.1rem;
   color: #111;
@@ -150,6 +210,7 @@ aside p {
 }
 
 .carrello-item .thumb {
+  display: flex;
   width: 50px;
   height: 50px;
   object-fit: cover;
@@ -160,7 +221,8 @@ aside p {
 /* Responsive */
 @media (max-width: 768px) {
   main {
-    grid-template-columns: 1fr;
+    display: flex;
+    /* grid-template-columns: 1fr; */
   }
 
   .articolo img {
