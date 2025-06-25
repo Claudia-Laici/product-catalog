@@ -38,7 +38,7 @@ const carrello = [];
 // Funzione per aggiungere un articolo al carrello
 function aggiungiAlCarrello(id) {
   const articolo = listaOggetti.find((item) => item.id === id);
-  const input = document.getElementById(`quantita-${id}`); // 🔁 ottiene la quantità dal DOM
+  const input = document.getElementById(`quantita-${id}`);
   const quantita = parseInt(input.value) || 1;
   const index = carrello.findIndex((item) => item.id === id);
   if (index !== -1) {
@@ -57,10 +57,17 @@ function aggiungiAlCarrello(id) {
   aggiornaLista();
 }
 
-// Funzione per creare gli articoli nel main
-function creaArticoli() {
+// Funzione per creare gli articoli nel main (ora accetta array filtrato)
+function creaArticoli(articoliDaMostrare = listaOggetti) {
   const main = document.querySelector("main");
-  for (let articolo of listaOggetti) {
+  main.innerHTML = ""; // Pulisce SEMPRE il contenuto precedente
+  
+  if (articoliDaMostrare.length === 0) {
+    main.innerHTML = "<p>Nessun prodotto trovato</p>";
+    return;
+  }
+  
+  for (let articolo of articoliDaMostrare) {
     const div = document.createElement("div");
     div.classList.add("articolo");
     div.setAttribute("data-id", articolo.id);
@@ -90,13 +97,44 @@ function creaArticoli() {
   }
 }
 
+// Switch theme
+document.getElementById('theme-toggle').addEventListener('click', function() {
+  const html = document.documentElement;
+  const currentTheme = html.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', newTheme);
+  this.textContent = newTheme === 'light' ? '🌙' : '☀️';
+});
+
+// Barra di ricerca - ora cerca nell'array e ricostruisce il DOM
+function ricerca() {
+  const input = document.getElementById("search-input");
+  const filter = input.value.toLowerCase().trim();
+  
+  let articoliFiltrati;
+  
+  if (filter === "") {
+    // Se la ricerca è vuota, mostra tutti gli articoli
+    articoliFiltrati = listaOggetti;
+  } else {
+    // Filtra l'array in base al nome e alla descrizione
+    articoliFiltrati = listaOggetti.filter(articolo => 
+      articolo.name.toLowerCase().includes(filter) /* || 
+      articolo.description.toLowerCase().includes(filter) */
+    );
+  }
+  
+  // Ricostruisce il DOM con gli articoli filtrati
+  creaArticoli(articoliFiltrati);
+}
+
 // Funzione per calcolare prezzo totale dato prezzo e quantità
 function calcolaQuantita(id) {
   const input = document.querySelector(`#quantita-${id}`);
   const quantita = parseInt(input.value, 10) || 1;
 
   const articolo = listaOggetti.find((item) => item.id === id);
-  articolo.quantita = quantita; // 🔁 aggiorna la quantità anche nell’oggetto
+  articolo.quantita = quantita;
 
   const prezzoTotale = (articolo.price * quantita).toFixed(2);
 
@@ -105,25 +143,25 @@ function calcolaQuantita(id) {
   prezzoEl.textContent = `Totale: €${prezzoTotale}`;
 }
 
-// Funzione placeholder per aggiornare la lista carrello (può essere migliorata)
+// Funzione per aggiornare la lista carrello
 function aggiornaLista() {
   const ulCart = document.querySelector("aside ul");
-  ulCart.innerHTML = ""; // Pulisce il contenuto precedente
+  ulCart.innerHTML = "";
 
   let totale = 0;
 
   for (let articolo of carrello) {
     const liCart = document.createElement("li");
     liCart.innerHTML = `
-  <div class="carrello-item">
-    <img src="${articolo.imageUrl}" alt="${articolo.name}" class="thumb">
-    <div>
-      <strong>${articolo.name}</strong><br>
-      Quantità: ${articolo.quantita}
-    </div>
-    <button onclick="eliminaProdotto(${articolo.id})">Elimina</button>
-  </div>
-`;
+      <div class="carrello-item">
+        <img src="${articolo.imageUrl}" alt="${articolo.name}" class="thumb">
+        <div>
+          <strong>${articolo.name}</strong><br>
+          Quantità: ${articolo.quantita}
+        </div>
+        <button onclick="eliminaProdotto(${articolo.id})">Elimina</button>
+      </div>
+    `;
 
     ulCart.appendChild(liCart);
     totale += articolo.price * articolo.quantita;
@@ -136,6 +174,7 @@ function aggiornaLista() {
     totalElement.textContent = `Totale carrello: €${totale.toFixed(2)}`;
   }
 }
+
 function eliminaProdotto(id) {
   const index = carrello.findIndex((item) => item.id === id);
   if (index !== -1) {
@@ -144,8 +183,25 @@ function eliminaProdotto(id) {
   }
 }
 
-// Esegui all’avvio
+// Esegui all'avvio del DOM
 document.addEventListener("DOMContentLoaded", function () {
   aggiornaLista();
-  creaArticoli();
+  creaArticoli(); // Prima crea gli articoli
+  
+  // POI aggiungi gli event listeners per la ricerca
+  const searchInput = document.getElementById("search-input");
+  const searchButton = document.getElementById("search-button");
+  
+  if (searchInput) {
+    searchInput.addEventListener("input", ricerca);
+    searchInput.addEventListener("keyup", function(event) {
+      if (event.key === "Enter") {
+        ricerca();
+      }
+    });
+  }
+  
+  if (searchButton) {
+    searchButton.addEventListener("click", ricerca);
+  }
 });

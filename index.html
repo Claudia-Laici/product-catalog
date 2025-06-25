@@ -1,15 +1,23 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mod3D Studio</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
 
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <header>
+        <button id="theme-toggle">
+          🌙<!-- <i class = "fa-solid fa-sun"></i> -->
+        </button>
+        <button class="ButtonLogin" id="ButtonLogin">Login</button>
         <h1>Mod3D Studio 🖨️</h1>
         <span><!-- avviso aggiunta articolo --></span>
       </header>
@@ -20,19 +28,33 @@
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
         </ul>
-        
       </nav>
 
       <div class="main-aside">
         <main></main>
 
         <aside>
+          <div class="search-container">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Cerca prodotti..."
+            />
+            <button id="search-button"><i class="fas fa-search"></i></button>
+          </div>
+        </aside>
+
+        <aside>
           <h2>🛒 Carrello</h2>
-          
+
           <ul></ul>
-           <p></p>
+          <p></p>
+          <button class="btnEraseCart" id="btnEraseCart" disabled>
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+
           <button class="checkout-btn" id="checkout-btn" disabled>
-            Procedi al Checkout 
+            Procedi al Checkout
           </button>
         </aside>
       </div>
