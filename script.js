@@ -37,19 +37,19 @@ const carrello = [];
 
 
 // Funzione per mostrare notifica toast
-function mostraNotifica(messaggio, tipo = 'success') {
+function mostraNotifica(messaggio, tipo = "success") {
   // Rimuovi notifica esistente se presente
-  const esistente = document.querySelector('.toast-notification');
+  const esistente = document.querySelector(".toast-notification");
   if (esistente) {
     esistente.remove();
   }
 
   // Crea elemento notifica
-  const toast = document.createElement('div');
+  const toast = document.createElement("div");
   toast.className = `toast-notification toast-${tipo}`;
   toast.innerHTML = `
     <div class="toast-content">
-      <span class="toast-icon">${tipo === 'success' ? '✅' : '❌'}</span>
+      <span class="toast-icon">${tipo === "success" ? "✅" : "❌"}</span>
       <span class="toast-message">${messaggio}</span>
       <button class="toast-close" onclick="this.parentElement.parentElement.remove()">×</button>
     </div>
@@ -60,13 +60,13 @@ function mostraNotifica(messaggio, tipo = 'success') {
 
   // Anima l'entrata
   setTimeout(() => {
-    toast.classList.add('toast-show');
+    toast.classList.add("toast-show");
   }, 100);
 
   // Rimuovi automaticamente dopo 3 secondi
   setTimeout(() => {
     if (toast.parentElement) {
-      toast.classList.remove('toast-show');
+      toast.classList.remove("toast-show");
       setTimeout(() => {
         if (toast.parentElement) {
           toast.remove();
@@ -96,10 +96,9 @@ function aggiungiAlCarrello(id) {
       imageUrl: articolo.imageUrl,
     });
 
-      mostraNotifica(`Aggiunto ${articolo.name} x${quantita} al carrello`);
+    mostraNotifica(`Aggiunto ${articolo.name} x${quantita} al carrello`);
   }
 
-  
   aggiornaLista();
 }
 
@@ -107,12 +106,12 @@ function aggiungiAlCarrello(id) {
 function creaArticoli(articoliDaMostrare = listaOggetti) {
   const main = document.querySelector("main");
   main.innerHTML = ""; // Pulisce SEMPRE il contenuto precedente
-  
+
   if (articoliDaMostrare.length === 0) {
     main.innerHTML = "<p>Nessun prodotto trovato</p>";
     return;
   }
-  
+
   for (let articolo of articoliDaMostrare) {
     const div = document.createElement("div");
     div.classList.add("articolo");
@@ -144,32 +143,32 @@ function creaArticoli(articoliDaMostrare = listaOggetti) {
 }
 
 // Switch theme
-document.getElementById('theme-toggle').addEventListener('click', function() {
+document.getElementById("theme-toggle").addEventListener("click", function () {
   const html = document.documentElement;
-  const currentTheme = html.getAttribute('data-theme');
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  html.setAttribute('data-theme', newTheme);
-  this.textContent = newTheme === 'light' ? '🌙' : '☀️';
+  const currentTheme = html.getAttribute("data-theme");
+  const newTheme = currentTheme === "light" ? "dark" : "light";
+  html.setAttribute("data-theme", newTheme);
+  this.textContent = newTheme === "light" ? "🌙" : "☀️";
 });
 
 // Barra di ricerca - ora cerca nell'array e ricostruisce il DOM
 function ricerca() {
   const input = document.getElementById("search-input");
   const filter = input.value.toLowerCase().trim();
-  
+
   let articoliFiltrati;
-  
+
   if (filter === "") {
     // Se la ricerca è vuota, mostra tutti gli articoli
     articoliFiltrati = listaOggetti;
   } else {
     // Filtra l'array in base al nome e alla descrizione
-    articoliFiltrati = listaOggetti.filter(articolo => 
-      articolo.name.toLowerCase().includes(filter) /* || 
+    articoliFiltrati = listaOggetti.filter(
+      (articolo) => articolo.name.toLowerCase().includes(filter) /* || 
       articolo.description.toLowerCase().includes(filter) */
     );
   }
-  
+
   // Ricostruisce il DOM con gli articoli filtrati
   creaArticoli(articoliFiltrati);
 }
@@ -229,25 +228,116 @@ function eliminaProdotto(id) {
   }
 }
 
+// Aggiungi un event listener per il pulsante di login
+
+// Gestione Modal Login
+function openLoginModal() {
+  const modal = document.getElementById("login-modal");
+  modal.classList.add("show");
+  modal.style.display = "flex";
+
+  // Focus sul primo input
+  setTimeout(() => {
+    document.getElementById("username").focus();
+  }, 300);
+}
+
+function closeLoginModal() {
+  const modal = document.getElementById("login-modal");
+  /*  modal.classList.remove("show");  */ // Sostituisce la pagina login con il login a sinistra nel mentre carica la pagina quando si fa il login se ci mette troppo tempo.
+
+  // Aspetta la fine dell'animazione prima di nascondere
+  setTimeout(() => {
+    modal.style.display = "none";
+    // Reset form
+    document.getElementById("login-form").reset();
+  }, 300);
+}
+
 // Esegui all'avvio del DOM
 document.addEventListener("DOMContentLoaded", function () {
   aggiornaLista();
   creaArticoli(); // Prima crea gli articoli
-  
+
   // POI aggiungi gli event listeners per la ricerca
   const searchInput = document.getElementById("search-input");
   const searchButton = document.getElementById("search-button");
-  
+
   if (searchInput) {
     searchInput.addEventListener("input", ricerca);
-    searchInput.addEventListener("keyup", function(event) {
+    searchInput.addEventListener("keyup", function (event) {
       if (event.key === "Enter") {
         ricerca();
       }
     });
   }
-  
+
   if (searchButton) {
     searchButton.addEventListener("click", ricerca);
   }
+
+  // Pulsante Login
+  const loginButton = document.getElementById("ButtonLogin");
+  if (loginButton) {
+    loginButton.addEventListener("click", openLoginModal);
+  }
+
+  // Chiudi modal
+  const closeModal = document.getElementById("close-modal");
+  const cancelLogin = document.getElementById("cancel-login");
+  const modal = document.getElementById("login-modal");
+
+  if (closeModal) {
+    closeModal.addEventListener("click", closeLoginModal);
+  }
+
+  if (cancelLogin) {
+    cancelLogin.addEventListener("click", closeLoginModal);
+  }
+
+  // Chiudi cliccando fuori dal modal
+  if (modal) {
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        closeLoginModal();
+      }
+    });
+  }
+
+  // Gestione form login
+  const loginForm = document.getElementById("login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (username && password) {
+        // Simula autenticazione (sostituisci con la tua logica)
+        if (password.length >= 4) {
+          mostraNotifica(`Benvenuto ${username}!`, "success");
+          closeLoginModal();
+
+          // Opzionale: cambia il pulsante login in logout
+          loginButton.innerHTML = '<i class="fa-solid fa-user-check"></i>';
+          loginButton.title = `Collegato come ${username}`;
+        } else {
+          mostraNotifica("Password troppo corta (min 4 caratteri)", "error");
+        }
+      } else {
+        mostraNotifica("Compila tutti i campi", "error");
+      }
+    });
+  }
+
+  // Chiudi modal con tasto ESC
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      const modal = document.getElementById("login-modal");
+      if (modal && modal.classList.contains("show")) {
+        closeLoginModal();
+      }
+    }
+  });
 });
