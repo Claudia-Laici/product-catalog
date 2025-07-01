@@ -35,6 +35,50 @@ const listaOggetti = [
 
 const carrello = [];
 
+
+// Funzione per mostrare notifica toast
+function mostraNotifica(messaggio, tipo = 'success') {
+  // Rimuovi notifica esistente se presente
+  const esistente = document.querySelector('.toast-notification');
+  if (esistente) {
+    esistente.remove();
+  }
+
+  // Crea elemento notifica
+  const toast = document.createElement('div');
+  toast.className = `toast-notification toast-${tipo}`;
+  toast.innerHTML = `
+    <div class="toast-content">
+      <span class="toast-icon">${tipo === 'success' ? '✅' : '❌'}</span>
+      <span class="toast-message">${messaggio}</span>
+      <button class="toast-close" onclick="this.parentElement.parentElement.remove()">×</button>
+    </div>
+  `;
+
+  // Aggiungi al body
+  document.body.appendChild(toast);
+
+  // Anima l'entrata
+  setTimeout(() => {
+    toast.classList.add('toast-show');
+  }, 100);
+
+  // Rimuovi automaticamente dopo 3 secondi
+  setTimeout(() => {
+    if (toast.parentElement) {
+      toast.classList.remove('toast-show');
+      setTimeout(() => {
+        if (toast.parentElement) {
+          toast.remove();
+        }
+      }, 300);
+    }
+  }, 3000);
+}
+
+
+
+
 // Funzione per aggiungere un articolo al carrello
 function aggiungiAlCarrello(id) {
   const articolo = listaOggetti.find((item) => item.id === id);
@@ -51,9 +95,11 @@ function aggiungiAlCarrello(id) {
       price: articolo.price,
       imageUrl: articolo.imageUrl,
     });
+
+      mostraNotifica(`Aggiunto ${articolo.name} x${quantita} al carrello`);
   }
 
-  alert("Articolo aggiunto al carrello!");
+  
   aggiornaLista();
 }
 
