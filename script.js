@@ -33,8 +33,7 @@ const listaOggetti = [
   },
 ];
 
-const carrello = [];
-
+let carrello = [];
 
 // Funzione per mostrare notifica toast
 function mostraNotifica(messaggio, tipo = "success") {
@@ -76,9 +75,6 @@ function mostraNotifica(messaggio, tipo = "success") {
   }, 3000);
 }
 
-
-
-
 // Funzione per aggiungere un articolo al carrello
 function aggiungiAlCarrello(id) {
   const articolo = listaOggetti.find((item) => item.id === id);
@@ -100,6 +96,7 @@ function aggiungiAlCarrello(id) {
   }
 
   aggiornaLista();
+  aggiornaStatoBottone(); // Aggiorna stato del bottone
 }
 
 // Funzione per creare gli articoli nel main (ora accetta array filtrato)
@@ -129,7 +126,7 @@ function creaArticoli(articoliDaMostrare = listaOggetti) {
           id="quantita-${articolo.id}" 
           value="${articolo.quantita}" 
           min="1" 
-          onchange="calcolaQuantita(${articolo.id})"
+          oninput="calcolaQuantita(${articolo.id})"
         >
       </label>
       
@@ -176,7 +173,12 @@ function ricerca() {
 // Funzione per calcolare prezzo totale dato prezzo e quantità
 function calcolaQuantita(id) {
   const input = document.querySelector(`#quantita-${id}`);
-  const quantita = parseInt(input.value, 10) || 1;
+  let quantita = parseInt(input.value, 10) || 1;
+
+    if (isNaN(quantita) || quantita < 1) {
+    quantita = 1;
+    input.value = 1;
+  }
 
   const articolo = listaOggetti.find((item) => item.id === id);
   articolo.quantita = quantita;
@@ -225,7 +227,26 @@ function eliminaProdotto(id) {
   if (index !== -1) {
     carrello.splice(index, 1);
     aggiornaLista();
+    aggiornaStatoBottone();
   }
+}
+
+// Funzione per gestire lo svuotamento del carrello
+function svuotaCarrello() {
+  if (carrello.length === 0) {
+    mostraNotifica("Il carrello è già vuoto", "error");
+    return;
+  }
+
+  carrello = [];
+  aggiornaLista();
+  mostraNotifica("Carrello svuotato", "success");
+  aggiornaStatoBottone(); // << Aggiorna stato del bottone
+}
+
+function aggiornaStatoBottone() {
+  const btn = document.getElementById("btnEraseCart");
+  btn.disabled = carrello.length === 0;
 }
 
 // Aggiungi un event listener per il pulsante di login
@@ -280,6 +301,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const loginButton = document.getElementById("ButtonLogin");
   if (loginButton) {
     loginButton.addEventListener("click", openLoginModal);
+  }
+
+  // Pulsante Svuota Carrello
+  const btnEraseCart = document.getElementById("btnEraseCart");
+  if (btnEraseCart) {
+    btnEraseCart.addEventListener("click", svuotaCarrello);
+    aggiornaStatoBottone();
   }
 
   // Chiudi modal
