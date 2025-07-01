@@ -14,11 +14,16 @@
   <body>
     <div class="container">
       <header>
-        <button id="theme-toggle">
-          🌙<!-- <i class = "fa-solid fa-sun"></i> -->
-        </button>
-        <button class="ButtonLogin" id="ButtonLogin">Login</button>
         <h1>MOD3D Studio 🖨️</h1>
+        <div>
+          <button id="theme-toggle">
+            🌙<!-- <i class = "fa-solid fa-sun"></i> -->
+          </button>
+          <button class="ButtonLogin" id="ButtonLogin">
+            <i class="fa-solid fa-user"></i>
+          </button>
+        </div>
+
         <span><!-- avviso aggiunta articolo --></span>
       </header>
 
@@ -29,13 +34,10 @@
           <li><a href="#">Contact</a></li>
         </ul>
       </nav>
-      
-
 
       <div class="main-aside">
         <main></main>
 
-       
         <div class="sidebar-right">
           <div class="search-container">
             <input
@@ -45,21 +47,20 @@
             />
             <button id="search-button"><i class="fas fa-search"></i></button>
           </div>
-        
 
-        <aside>
-          <h2>🛒 Carrello</h2>
+          <aside>
+            <h2>🛒 Carrello</h2>
 
-          <ul></ul>
-          <p></p>
-          <button class="btnEraseCart" id="btnEraseCart" disabled>
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
+            <ul></ul>
+            <p></p>
+            <button class="btnEraseCart" id="btnEraseCart" disabled>
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
 
-          <button class="checkout-btn" id="checkout-btn" disabled>
-            Procedi al Checkout
-          </button>
-        </aside>
+            <button class="checkout-btn" id="checkout-btn" disabled>
+              Procedi al Checkout
+            </button>
+          </aside>
         </div>
       </div>
     </div>
